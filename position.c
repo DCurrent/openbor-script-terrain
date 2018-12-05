@@ -122,3 +122,107 @@ void dc_terrain_set_positioning_z(int value)
 
 // Operations.
 
+// Caskey, Damon V.
+// 2018-12-05
+//
+// Get X position based on user settings and
+// acting entity location.
+float dc_terrain_find_final_position_x()
+{
+	float result;
+	void ent;
+	int positioning;
+
+	// get positioning setting.
+	positioning = dc_terrain_get_positioning_x();
+
+	// Start with 0 value.
+	result = 0.0;
+
+	// Use entity position?
+	if (positioning & DC_TERRAIN_POSITIONING_ENTITY)
+	{
+		ent = dc_terrain_get_entity();
+
+		result += getentityproperty(ent, "x");
+	}
+
+	// Use offset?
+	if (positioning & DC_TERRAIN_POSITIONING_OFFSET)
+	{
+		result += dc_terrain_get_offset_x();
+	}
+
+	// Return final result.
+	return result;
+}
+
+// Caskey, Damon V.
+// 2018-12-05
+//
+// Get Y position based on user settings and
+// acting entity location.
+float dc_terrain_find_final_position_y()
+{
+	float result;
+	void ent;
+	int positioning;
+
+	// get positioning setting.
+	positioning = dc_terrain_get_positioning_y();
+
+	// Start with 0 value.
+	result = 0.0;
+
+	// Use entity position?
+	if (positioning & DC_TERRAIN_POSITIONING_ENTITY)
+	{
+		ent = dc_terrain_get_entity();
+
+		result += getentityproperty(ent, "y");
+	}
+
+	// Use offset?
+	if (positioning & DC_TERRAIN_POSITIONING_OFFSET)
+	{
+		result += dc_terrain_get_offset_y();
+	}
+
+	// Return final result.
+	return result;
+}
+
+// Caskey, Damon V.
+// 2018-12-05
+//
+// Get Z position based on user settings and
+// acting entity location.
+float dc_terrain_find_final_position_z()
+{
+	float result;
+	void ent;
+	int positioning;
+
+	// get positioning setting.
+	positioning = dc_terrain_get_positioning_z();
+
+	// Start with 0 value.
+	result = 0.0;
+
+	// Use entity position?
+	if (positioning & DC_TERRAIN_POSITIONING_ENTITY)
+	{
+		ent = dc_terrain_get_entity();
+
+		result += getentityproperty(ent, "z");
+	}
+
+	// Use offset?
+	if (positioning & DC_TERRAIN_POSITIONING_OFFSET)
+	{
+		result += dc_terrain_get_offset_z();
+	}
+
+	// Return final result.
+	return result;
+}
