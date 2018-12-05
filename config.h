@@ -6,8 +6,8 @@
 
 // For positioning switches, each item should be double previous
 // items value so we can use bitwise logic.
-#define DC_TERRAIN_POSITIONING_ENTITY	0
-#define DC_TERRAIN_POSITIONING_OFFSET	1
+#define DC_TERRAIN_POSITIONING_ENTITY	1
+#define DC_TERRAIN_POSITIONING_OFFSET	2
 
 
 // Defaults
