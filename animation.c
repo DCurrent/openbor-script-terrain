@@ -11,7 +11,7 @@ int dc_terrain_get_animation()
 	id = dc_terrain_get_instance() + DC_TERRAIN_VAR_KEY_OFFSET_X;
 
 	// Get value from local var.
-	result = getlocavar(id);
+	result = getlocalvar(id);
 
 	// If result is empty or invalid, use default.
 	if (typeof(result) != openborconstant("VT_INTEGER"))
