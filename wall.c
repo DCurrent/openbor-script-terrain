@@ -105,6 +105,12 @@ float dc_terrain_find_wall_left_edge_x(int wall)
 	float coefficient;
 	float result;
 
+	// If there are no walls, return 0.
+	if (openborvariant("numwalls"))
+	{
+		return 0.0;
+	}
+
 	// Get Z position to search from.
 	pos_z = dc_terrain_find_final_position_z();
 
@@ -181,6 +187,12 @@ float dc_terrain_find_wall_right_edge_x(int wall)
 	float coefficient;
 	float result;
 
+	// If there are no walls, return 0.
+	if (openborvariant("numwalls"))
+	{
+		return 0.0;
+	}
+
 	// Get Z position to search from.
 	pos_z = dc_terrain_find_final_position_z();
 
@@ -247,25 +259,14 @@ int dc_terrain_check_wall_in_range_all(int wall)
 // range of animation (for active entity).
 int dc_terrain_check_wall_in_range_x(int wall)
 {
-	void ent;
-	int animation;
-
-	// Positions.
-	int direction;
-	float pos_x;
-	float pos_z;
-
-	// Wall calculations.
 	float edge_left;
 	float edge_right;
 
-	// Get acting entity and positions.
-	ent = dc_terrain_get_entity();
-	direction = getentityproperty(ent, "direction");
-	pos_x = getentityproperty(ent, "x");
-	pos_z = getentityproperty(ent, "z");
-
-	animation = dc_terrain_get_animation();
+	// If there are no walls, return false.
+	if (openborvariant("numwalls"))
+	{
+		return 0;
+	}
 
 	// Get wall edge positions.
 	edge_left = dc_terrain_find_wall_left_edge_x(wall);
@@ -287,21 +288,13 @@ int dc_terrain_check_wall_in_range_x(int wall)
 // range of animation (for active entity).
 int dc_terrain_check_wall_in_range_y(int wall)
 {
-	void ent;
-	int animation;
-
-	// Positions.
-	float pos_y;
-
-	// Wall position/dimensions.
 	float height;
 
-	// Get acting entity and positions.
-	
-	ent = dc_terrain_get_entity();
-	pos_y = getentityproperty(ent, "y");
-
-	animation = dc_terrain_get_animation();	
+	// If there are no walls, return false.
+	if (openborvariant("numwalls"))
+	{
+		return 0;
+	}
 
 	// Get wall height.
 	height = getlevelproperty("wall", wall, "height");
@@ -322,12 +315,6 @@ int dc_terrain_check_wall_in_range_y(int wall)
 // range of animation (for active entity).
 int dc_terrain_check_wall_in_range_z(int wall)
 {
-	void ent;
-	int animation;
-
-	// Positions.
-	float pos_z;
-
 	// Wall position/dimensions.
 	float z;
 	float depth;
@@ -335,27 +322,15 @@ int dc_terrain_check_wall_in_range_z(int wall)
 	// Wall calculations.
 	float test_depth;
 
-	// Ranges
-	float range_z_min;
-	float range_z_max;
+	// If there are no walls, return false.
+	if (openborvariant("numwalls"))
+	{
+		return 0;
+	}
 
-	// Get acting entity and positions.
-	ent = dc_terrain_get_entity();
-	pos_z = getentityproperty(ent, "z");
-
-	animation = dc_terrain_get_animation();
-	
 	// Get wall Z dimensions.
 	z = getlevelproperty("wall", wall, "z");
 	depth = getlevelproperty("wall", wall, "depth");
-
-	// Get Z ranges.
-	range_z_min = getentityproperty(ent, "range", "zmin", animation);
-	range_z_max = getentityproperty(ent, "range", "zmax", animation);
-
-	// Add entity position to Z range.
-	range_z_min += pos_z;
-	range_z_max += pos_z;
 
 	// Get final test depth.
 	test_depth = z + depth;
@@ -365,12 +340,6 @@ int dc_terrain_check_wall_in_range_z(int wall)
 	dc_target_set_animation(dc_terrain_get_animation());
 	dc_target_set_entity(dc_terrain_get_entity());
 
-	// Z position to test depth anywhere within Z range?
-	if (range_z_min <= z && range_z_max >= test_depth)
-	{
-		return 1;
-	}
-
-	// If we got here, return false.
-	return 0;
+	// Return height vs. range.
+	return dc_target_check_range_in_range_z(z, test_depth);
 }
