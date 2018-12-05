@@ -106,7 +106,7 @@ float dc_terrain_find_wall_left_edge_x(int wall)
 	float result;
 
 	// If there are no walls, return 0.
-	if (openborvariant("numwalls"))
+	if (!openborvariant("numwalls"))
 	{
 		return 0.0;
 	}
@@ -119,6 +119,7 @@ float dc_terrain_find_wall_left_edge_x(int wall)
 	z = getlevelproperty("wall", wall, "z");
 	lower_corner = getlevelproperty("wall", wall, "lowerleft");
 	upper_corner = getlevelproperty("wall", wall, "upperleft");
+	depth = getlevelproperty("wall", wall, "depth");
 
 	// Walls are rectangular parallelepipeds (think cube with a parallelogram
 	// as its base), so accurately calculating where the wall edge is along
@@ -188,7 +189,7 @@ float dc_terrain_find_wall_right_edge_x(int wall)
 	float result;
 
 	// If there are no walls, return 0.
-	if (openborvariant("numwalls"))
+	if (!openborvariant("numwalls"))
 	{
 		return 0.0;
 	}
@@ -201,6 +202,7 @@ float dc_terrain_find_wall_right_edge_x(int wall)
 	z = getlevelproperty("wall", wall, "z");
 	lower_corner = getlevelproperty("wall", wall, "lowerright");
 	upper_corner = getlevelproperty("wall", wall, "upperright");
+	depth = getlevelproperty("wall", wall, "depth");
 
 	// See dc_terrain_find_wall_left_edge_x() for explanation of 
 	// the coefficient.
@@ -263,7 +265,7 @@ int dc_terrain_check_wall_in_range_x(int wall)
 	float edge_right;
 
 	// If there are no walls, return false.
-	if (openborvariant("numwalls"))
+	if (!openborvariant("numwalls"))
 	{
 		return 0;
 	}
@@ -291,7 +293,7 @@ int dc_terrain_check_wall_in_range_y(int wall)
 	float height;
 
 	// If there are no walls, return false.
-	if (openborvariant("numwalls"))
+	if (!openborvariant("numwalls"))
 	{
 		return 0;
 	}
@@ -323,7 +325,7 @@ int dc_terrain_check_wall_in_range_z(int wall)
 	float test_depth;
 
 	// If there are no walls, return false.
-	if (openborvariant("numwalls"))
+	if (!openborvariant("numwalls"))
 	{
 		return 0;
 	}
