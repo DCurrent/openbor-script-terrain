@@ -1,6 +1,9 @@
 #ifndef DC_TERRAIN_CONFIG
 #define DC_TERRAIN_CONFIG 1
 
+// Dependencies
+#include "data/scripts/dc_target/main.c"
+
 // For positioning switches, each item should be double previous
 // items value so we can use bitwise logic.
 #define DC_TERRAIN_POSITIONING_ENTITY	0
