@@ -256,12 +256,8 @@ int dc_terrain_check_wall_in_range_x(int wall)
 	float pos_z;
 
 	// Wall calculations.
-	float test_left;
-	float test_right;
-
-	// Ranges.
-	float range_x_min;
-	float range_x_max;
+	float edge_left;
+	float edge_right;
 
 	// Get acting entity and positions.
 	ent = dc_terrain_get_entity();
@@ -269,38 +265,19 @@ int dc_terrain_check_wall_in_range_x(int wall)
 	pos_x = getentityproperty(ent, "x");
 	pos_z = getentityproperty(ent, "z");
 
-	animation = dc_terrain_get_animation();	
+	animation = dc_terrain_get_animation();
 
-	// Get X ranges.
-	range_x_min = getentityproperty(ent, "range", "xmin", animation);
-	range_x_max = getentityproperty(ent, "range", "xmax", animation);
+	// Get wall edge positions.
+	edge_left = dc_terrain_find_wall_left_edge_x(wall);
+	edge_right = dc_terrain_find_wall_right_edge_x(wall);
 
-	// Combine the X range settings with current position. 
-	// If facing left, we'll need subtract for X. If facing 
-	// right, then we'll add.
-	if (direction == openborconstant("DIRECTION_LEFT"))
-	{
-		range_x_min = pos_x - range_x_min;
-		range_x_max = pos_x - range_x_max;
-	}
-	else if (direction == openborconstant("DIRECTION_RIGHT"))
-	{
-		range_x_min += pos_x;
-		range_x_max += pos_x;
-	}
+	// Prepare target library.
+	dc_target_set_instance(dc_terrain_get_instance());
+	dc_target_set_animation(dc_terrain_get_animation());
+	dc_target_set_entity(dc_terrain_get_entity());
 
-	// get wall edge positions.
-	test_left = dc_terrain_find_wall_left_edge_x(wall, pos_z);
-	test_right = dc_terrain_find_wall_right_edge_x(wall, pos_z);
-
-	// Test locations within horizontal range?
-	if (range_x_min <= test_left && range_x_max >= test_right)
-	{
-		return 1;
-	}
-
-	// If we got here, return false.
-	return 0;
+	// Return result of range check.
+	return dc_target_check_range_in_range_x(edge_left, edge_right);
 }
 
 // Caskey, Damon V.
@@ -319,36 +296,23 @@ int dc_terrain_check_wall_in_range_y(int wall)
 	// Wall position/dimensions.
 	float height;
 
-	// Ranges.
-	float range_y_min;
-	float range_y_max;
-
 	// Get acting entity and positions.
+	
 	ent = dc_terrain_get_entity();
 	pos_y = getentityproperty(ent, "y");
 
-	animation = dc_terrain_get_animation();
-	
+	animation = dc_terrain_get_animation();	
 
 	// Get wall height.
 	height = getlevelproperty("wall", wall, "height");
 
-	// Get vertical ranges.
-	range_y_min = getentityproperty(ent, "range", "amin", animation);
-	range_y_max = getentityproperty(ent, "range", "amax", animation);
+	// Prepare target library.
+	dc_target_set_instance(dc_terrain_get_instance());
+	dc_target_set_animation(dc_terrain_get_animation());
+	dc_target_set_entity(dc_terrain_get_entity());
 
-	// Add entity position to Y range.
-	range_y_min += pos_y;
-	range_y_max += pos_y;
-
-	// Base to wall height anywhere within vertical range?
-	if (range_y_min <= height && range_y_max >= 0)
-	{
-		return 1;
-	}
-
-	// If we got here, return false.
-	return 0;
+	// Return height vs. range.
+	return dc_target_check_position_in_range_y(height);
 }
 
 // Caskey, Damon V.
@@ -395,6 +359,11 @@ int dc_terrain_check_wall_in_range_z(int wall)
 
 	// Get final test depth.
 	test_depth = z + depth;
+
+	// Prepare target library.
+	dc_target_set_instance(dc_terrain_get_instance());
+	dc_target_set_animation(dc_terrain_get_animation());
+	dc_target_set_entity(dc_terrain_get_entity());
 
 	// Z position to test depth anywhere within Z range?
 	if (range_z_min <= z && range_z_max >= test_depth)
