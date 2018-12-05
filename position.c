@@ -15,7 +15,7 @@ int dc_terrain_get_positioning_x()
 	id = dc_terrain_get_instance() + DC_TERRAIN_VAR_KEY_POSITIONING_X;
 
 	// Get value from local var.
-	result = getlocavar(id);
+	result = getlocalvar(id);
 
 	// If result is empty or invalid, use default.
 	if (typeof(result) != openborconstant("VT_INTEGER"))
@@ -53,7 +53,7 @@ int dc_terrain_get_positioning_y()
 	id = dc_terrain_get_instance() + DC_TERRAIN_VAR_KEY_POSITIONING_Y;
 
 	// Get value from local var.
-	result = getlocavar(id);
+	result = getlocalvar(id);
 
 	// If result is empty or invalid, use default.
 	if (typeof(result) != openborconstant("VT_INTEGER"))
@@ -91,7 +91,7 @@ int dc_terrain_get_positioning_z()
 	id = dc_terrain_get_instance() + DC_TERRAIN_VAR_KEY_POSITIONING_Z;
 
 	// Get value from local var.
-	result = getlocavar(id);
+	result = getlocalvar(id);
 
 	// If result is empty or invalid, use default.
 	if (typeof(result) != openborconstant("VT_INTEGER"))
