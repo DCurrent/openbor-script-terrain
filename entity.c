@@ -11,7 +11,7 @@ void dc_terrain_get_entity()
 	id = dc_terrain_get_instance() + DC_TERRAIN_VAR_KEY_ENT;
 
 	// Get value from local var.
-	result = getlocavar(id);
+	result = getlocalvar(id);
 
 	// If result is empty or invalid, use default.
 	if (typeof(result) != openborconstant("VT_INTEGER"))
