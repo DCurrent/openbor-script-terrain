@@ -1,32 +1,70 @@
-#include "data/scripts/dc_target/config.h"
+#include "data/scripts/dc_terrain/config.h"
 
-#import "data/scripts/dc_target/animation.c"
-#import "data/scripts/dc_target/entity.c"
-#import "data/scripts/dc_target/offset.c"
-#import "data/scripts/dc_target/range.c"
+#import "data/scripts/dc_terrain/instance.c"
+#import "data/scripts/dc_terrain/animation.c"
+#import "data/scripts/dc_terrain/offset.c"
+
+// Access and mutate.
+
+int dc_terrain_get_wall()
+{
+	char id;
+	int result;
+
+	// Concatenate instance and key to create an id.
+	id = dc_terrain_get_instance() + DC_TERRAIN_VAR_KEY_WALL;
+
+	// Get value from local var.
+	result = getlocavar(id);
+
+	// If result is empty or invalid, use default.
+	if (typeof(result) != openborconstant("VT_INTEGER"))
+	{
+		result = DC_TERRAIN_DEFAULT_WALL;
+	}
+
+	return result;
+}
+
+void dc_terrain_set_wall(int value)
+{
+	char id;
+
+	// Concatenate instance and key to create an id.
+	id = dc_terrain_get_instance() + DC_TERRAIN_VAR_KEY_WALL;
+
+	// If value is same as default, then make
+	// sure the local var is deleted. Otherwise
+	// store the value.
+	if (value == DC_TERRAIN_DEFAULT_WALL)
+	{
+		setlocalvar(id, NULL());
+	}
+	else
+	{
+		setlocalvar(id, value);
+	}
+}
+
+// Operations
 
 // Caskey, Damon V.
 // 2018-13-03
 //
 // Returns index of nearest wall in animation range, 
-// or DC_HANSBURG_NO_WALL if none found.
-int dc_target_find_wall(int animation)
+// or DC_TERIAIN_NO_WALL if none found.
+int dc_terrain_find_wall()
 {
 	void ent;			// Acting entity.
 	int i;				// Loop cursor.
 	int wall_count;		// Number of walls in level.
-
+	int animation;
 	float edge_left;
 	float edge_right;
 
-	// Get acting entity.
-	ent = dc_target_get_entity();
-
-	// Use library animation if no animation paramater given.
-	if (typeof(animation) != openborconstant("VT_INTEGER"))
-	{
-		animation = dc_target_get_animation();
-	}
+	// Get acting entity and animation.
+	ent = dc_terrain_get_entity();
+	animation = dc_terrain_get_animation();
 
 	// Loop through the level's wall collection.
 
@@ -36,15 +74,13 @@ int dc_target_find_wall(int animation)
 	{
 		// Verify the wall is within range of animation.
 		// If not, then exit this iteration of the loop.
-		if (!dc_target_check_wall_in_range_all(i, animation))
+		if (!dc_terrain_check_wall_in_range_all(i, animation))
 		{
 			continue;
 		}
 
-		edge_left = dc_target_find_wall_left_edge_x(i);
-		edge_right = dc_target_find_wall_right_edge_x(i);
-
-
+		edge_left = dc_terrain_find_wall_left_edge_x(i);
+		edge_right = dc_terrain_find_wall_right_edge_x(i);
 	}
 }
 
@@ -55,8 +91,7 @@ int dc_target_find_wall(int animation)
 // left edge at a given Z axis.
 //
 // wall: Wall index.
-// Z: Z posiiton. If omitted, acting entity's current Z position used.
-float dc_target_find_wall_left_edge_x(int wall, float z)
+float dc_terrain_find_wall_left_edge_x(int wall)
 {
 	void ent;
 	float pos_z;
@@ -73,7 +108,7 @@ float dc_target_find_wall_left_edge_x(int wall, float z)
 	if (typeof(z) != openborconstant("VT_DECIMAL"))
 	{
 		// Get acting entity and Z position.
-		ent = dc_target_get_entity();
+		ent = dc_terrain_get_entity();
 		pos_z = getentityproperty(ent, "z");
 	}
 
@@ -138,7 +173,7 @@ float dc_target_find_wall_left_edge_x(int wall, float z)
 //
 // wall: Wall index.
 // Z: Z posiiton. If omitted, acting entity's current Z position used.
-float dc_target_find_wall_right_edge_x(int wall, float z)
+float dc_terrain_find_wall_right_edge_x(int wall, float z)
 {
 	void ent;
 	float pos_z;
@@ -155,7 +190,7 @@ float dc_target_find_wall_right_edge_x(int wall, float z)
 	if (typeof(z) != openborconstant("VT_DECIMAL"))
 	{
 		// Get acting entity and Z position.
-		ent = dc_target_get_entity();
+		ent = dc_terrain_get_entity();
 		pos_z = getentityproperty(ent, "z");
 	}
 
@@ -165,7 +200,7 @@ float dc_target_find_wall_right_edge_x(int wall, float z)
 	lower_corner = getlevelproperty("wall", wall, "lowerright");
 	upper_corner = getlevelproperty("wall", wall, "upperright");
 
-	// See dc_target_find_wall_left_edge_x() for explanation of 
+	// See dc_terrain_find_wall_left_edge_x() for explanation of 
 	// the coefficient.
 
 	// Get our coefficients.
@@ -183,29 +218,29 @@ float dc_target_find_wall_right_edge_x(int wall, float z)
 //
 // Find midpoint between wall edges on X axis 
 // along a given Z position.
-int dc_target_find_wall_core_x()
+int dc_terrain_find_wall_core_x()
 
 // Caskey, Damon V.
 // 2018-12-03
 //
 // Return true if wall index is within range of animation
 // range (for active entity).
-int dc_target_check_wall_in_range_all(int wall, int animation)
+int dc_terrain_check_wall_in_range_all(int wall, int animation)
 {
 	// Run range check for each axis. If any one returns
 	// false, then we return false here.
 
-	if (!dc_target_check_wall_in_range_x(wall, animation))
+	if (!dc_terrain_check_wall_in_range_x(wall, animation))
 	{
 		return 0;
 	}
 
-	if (!dc_target_check_wall_in_range_y(wall, animation))
+	if (!dc_terrain_check_wall_in_range_y(wall, animation))
 	{
 		return 0;
 	}
 
-	if (!dc_target_check_wall_in_range_z(wall, animation))
+	if (!dc_terrain_check_wall_in_range_z(wall, animation))
 	{
 		return 0;
 	}
@@ -219,7 +254,7 @@ int dc_target_check_wall_in_range_all(int wall, int animation)
 //
 // Return true if wall index is within horizontal 
 // range of animation (for active entity).
-int dc_target_check_wall_in_range_x(int wall, int animation)
+int dc_terrain_check_wall_in_range_x(int wall, int animation)
 {
 	void ent;
 
@@ -237,7 +272,7 @@ int dc_target_check_wall_in_range_x(int wall, int animation)
 	float range_x_max;
 
 	// Get acting entity and positions.
-	ent = dc_target_get_entity();
+	ent = dc_terrain_get_entity();
 	direction = getentityproperty(ent, "direction");
 	pos_x = getentityproperty(ent, "x");
 	pos_z = getentityproperty(ent, "z");
@@ -245,7 +280,7 @@ int dc_target_check_wall_in_range_x(int wall, int animation)
 	// Use library animation if no animation paramater given.
 	if (typeof(animation) != openborconstant("VT_INTEGER"))
 	{
-		animation = dc_target_get_animation();
+		animation = dc_terrain_get_animation();
 	}
 
 	// Get X ranges.
@@ -267,8 +302,8 @@ int dc_target_check_wall_in_range_x(int wall, int animation)
 	}
 
 	// get wall edge positions.
-	test_left = dc_target_find_wall_left_edge_x(wall, pos_z);
-	test_right = dc_target_find_wall_right_edge_x(wall, pos_z);
+	test_left = dc_terrain_find_wall_left_edge_x(wall, pos_z);
+	test_right = dc_terrain_find_wall_right_edge_x(wall, pos_z);
 
 	// Test locations within horizontal range?
 	if (range_x_min <= test_left && range_x_max >= test_right)
@@ -285,7 +320,7 @@ int dc_target_check_wall_in_range_x(int wall, int animation)
 //
 // Return true if wall index is within vertical 
 // range of animation (for active entity).
-int dc_target_check_wall_in_range_y(int wall, int animation)
+int dc_terrain_check_wall_in_range_y(int wall, int animation)
 {
 	void ent;
 
@@ -300,13 +335,13 @@ int dc_target_check_wall_in_range_y(int wall, int animation)
 	float range_y_max;
 
 	// Get acting entity and positions.
-	ent = dc_target_get_entity();
+	ent = dc_terrain_get_entity();
 	pos_y = getentityproperty(ent, "y");
 
 	// Use library animation if no animation paramater given.
 	if (typeof(animation) != openborconstant("VT_INTEGER"))
 	{
-		animation = dc_target_get_animation();
+		animation = dc_terrain_get_animation();
 	}
 
 	// Get wall height.
@@ -335,7 +370,7 @@ int dc_target_check_wall_in_range_y(int wall, int animation)
 //
 // Return true if wall index is within lateral 
 // range of animation (for active entity).
-int dc_target_check_wall_in_range_z(int wall, int animation)
+int dc_terrain_check_wall_in_range_z(int wall, int animation)
 {
 	void ent;
 
@@ -354,13 +389,13 @@ int dc_target_check_wall_in_range_z(int wall, int animation)
 	float range_z_max;
 
 	// Get acting entity and positions.
-	ent = dc_target_get_entity();
+	ent = dc_terrain_get_entity();
 	pos_z = getentityproperty(ent, "z");
 
 	// Use library animation if no animation paramater given.
 	if (typeof(animation) != openborconstant("VT_INTEGER"))
 	{
-		animation = dc_target_get_animation();
+		animation = dc_terrain_get_animation();
 	}
 
 	// Get wall Z dimensions.
