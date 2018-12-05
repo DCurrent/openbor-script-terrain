@@ -1,0 +1,4 @@
+#ifndef DC_TERRAIN_CONFIG
+#define DC_TERRAIN_CONFIG 1
+
+#endif // !DC_TERRAIN_CONFIG
