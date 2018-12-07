@@ -220,10 +220,36 @@ float dc_terrain_find_wall_right_edge_x(int wall)
 // Caskey, Damon V.
 // 2018-12-05
 //
-// Find midpoint between wall edges on X axis 
-// along a given Z position.
-int dc_terrain_find_wall_core_x()
-{}
+// Return absolute location of midpoint between wall 
+// edges on X axis along a given Z position.
+int dc_terrain_find_wall_center_x(int wall)
+{
+	float edge_left;
+	float edge_right;
+
+	edge_left = dc_terrain_find_wall_left_edge_x();
+	edge_right = dc_terrain_find_wall_right_edge_x();
+
+	// Return midpoint of edges.
+	return dc_math_midpoint_float(edge_left, edge_right);
+}
+
+// Caskey, Damon V.
+// 2018-12-05
+//
+// Return thickness of wall (distance between X edges)
+// along a given Z axis.
+int dc_terrain_find_wall_width(int wall)
+{
+	float edge_left;
+	float edge_right;
+
+	edge_left = dc_terrain_find_wall_left_edge_x();
+	edge_right = dc_terrain_find_wall_right_edge_x();
+
+	// Find difference between edges and return.
+	return dc_math_difference_float(edge_right, edge_left);
+}
 
 // Caskey, Damon V.
 // 2018-12-03
