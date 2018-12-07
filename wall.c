@@ -76,15 +76,33 @@ int dc_terrain_find_wall()
 	{
 		// Verify the wall is within range of animation.
 		// If not, then exit this iteration of the loop.
-		if (!dc_terrain_check_wall_in_range_all(i, animation))
+		if (!dc_terrain_check_wall_in_range_all(i))
 		{
 			continue;
 		}
 
-		edge_left = dc_terrain_find_wall_left_edge_x(i);
-		edge_right = dc_terrain_find_wall_right_edge_x(i);
+		
 	}
 }
+
+// Caskey, Damon V.
+// 2018-12-07
+// 
+// Find distance from X position to left horizontal edge 
+// of wall along a given Z axis.
+float dc_terrain_distance_to_wall_left_edge_x(int wall)
+{
+	float pos_x;
+	float edge;
+
+	// Get X and edge positions.
+	edge	= dc_terrain_find_wall_left_edge_x(wall);
+	pos_x	= dc_terrain_find_final_position_x();
+
+	// Return difference between edge and X position.
+	return dc_math_difference_float(edge, pos_x);
+}
+
 
 // Caskey, Damon V.
 // 2018-12-03
