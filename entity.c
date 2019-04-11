@@ -1,7 +1,5 @@
 #include "data/scripts/dc_terrain/config.h"
 
-#import "data/scripts/dc_terrain/instance.c"
-
 void dc_terrain_get_entity()
 {
 	char id;
