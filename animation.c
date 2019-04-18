@@ -1,5 +1,7 @@
 #include "data/scripts/dc_terrain/config.h"
 
+#import "data/scripts/dc_terrain/instance.c"
+
 int dc_terrain_get_animation()
 {
 	char id;

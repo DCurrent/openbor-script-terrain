@@ -1,6 +1,7 @@
 #include "data/scripts/dc_terrain/config.h"
 
 #import "data/scripts/dc_terrain/entity.c"
+#import "data/scripts/dc_terrain/instance.c"
 #import "data/scripts/dc_terrain/offset.c"
 
 // Access and mutators.
