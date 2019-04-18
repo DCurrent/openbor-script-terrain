@@ -10,7 +10,7 @@ int dc_terrain_get_instance()
 	int result;
 
 	// Get instance value.
-	result = getlocalvar(DC_TERRAIN_VAR_KEY_INSTANCE);
+	result = getlocalvar(DC_TERRAIN_MEMBER_INSTANCE);
 
 	// Value must be a valid integer, or
 	// we will use the default.
@@ -33,11 +33,11 @@ void dc_terrain_set_instance(int value)
 	// the memory on a default value.
 	if (value != DC_TERRAIN_DEFAULT_INSTANCE)
 	{
-		setlocalvar(DC_TERRAIN_VAR_KEY_INSTANCE, value);
+		setlocalvar(DC_TERRAIN_MEMBER_INSTANCE, value);
 	}
 	else
 	{
-		setlocalvar(DC_TERRAIN_VAR_KEY_INSTANCE, NULL());
+		setlocalvar(DC_TERRAIN_MEMBER_INSTANCE, NULL());
 	}
 }
 
@@ -80,7 +80,7 @@ void dc_terrain_free_instance()
 	instance = dc_terrain_get_instance();
 
 	// Loop from 0 to end count of library variables.
-	for (i = 0; i < DC_TERRAIN_VAR_KEY_THE_END; i++)
+	for (i = 0; i < DC_TERRAIN_MEMBER_THE_END; i++)
 	{
 		// Concatenate the variable ID.
 		id = instance + DC_TERRAIN_BASE_ID + i;
@@ -108,7 +108,7 @@ void dc_terrain_dump_instance()
 	log("\n\t " + "Instance: " + instance);
 
 	// Loop from 0 to end count of instance variables.
-	for (i = 0; i < DC_TERRAIN_VAR_KEY_THE_END; i++)
+	for (i = 0; i < DC_TERRAIN_MEMBER_THE_END; i++)
 	{
 		// Concatenate the variable ID.
 		id = instance + DC_TERRAIN_BASE_ID + i;
@@ -141,7 +141,7 @@ void dc_terrain_export_instance()
 	instance = dc_terrain_get_instance();
 
 	// Loop from 0 to end count of instance variables.
-	for (i = 0; i < DC_TERRAIN_VAR_KEY_THE_END; i++)
+	for (i = 0; i < DC_TERRAIN_MEMBER_THE_END; i++)
 	{
 		// Concatenate the variable ID.
 		id = instance + DC_TERRAIN_BASE_ID + i;
@@ -170,7 +170,7 @@ void dc_terrain_import_instance()
 	instance = dc_terrain_get_instance();
 
 	// Loop from 0 to end count of instance variables.
-	for (i = 0; i < DC_TERRAIN_VAR_KEY_THE_END; i++)
+	for (i = 0; i < DC_TERRAIN_MEMBER_THE_END; i++)
 	{
 		// Concatenate the variable ID.
 		id = instance + DC_TERRAIN_BASE_ID + i;
@@ -197,7 +197,7 @@ void dc_terrain_free_export_instance()
 	instance = dc_terrain_get_instance();
 
 	// Loop from 0 to end count of library variables.
-	for (i = 0; i < DC_TERRAIN_VAR_KEY_THE_END; i++)
+	for (i = 0; i < DC_TERRAIN_MEMBER_THE_END; i++)
 	{
 		// Concatenate the variable ID.
 		id = instance + DC_TERRAIN_BASE_ID + i;

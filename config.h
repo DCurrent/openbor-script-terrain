@@ -4,6 +4,10 @@
 // Dependencies
 #include "data/scripts/dc_target/main.c"
 
+// Name of library. Used mainly as a base for variable IDs. Must
+// be unique vs all other libraries. Try to keep it short.
+#define DC_TERRAIN_BASE_ID		"dcter"
+
 // For positioning switches, each item should be double previous
 // items value so we can use bitwise logic.
 #define DC_TERRAIN_POSITION_STATE_ENTITY	1
@@ -25,7 +29,7 @@
 
 // Variable keys.
 #define DC_TERRAIN_MEMBER_INSTANCE			DC_TERRAIN_BASE_ID + 0
-#define DC_TERRAIN_MEMBER_ANIMATION		DC_TERRAIN_BASE_ID + 1
+#define DC_TERRAIN_MEMBER_ANIMATION			DC_TERRAIN_BASE_ID + 1
 #define DC_TERRAIN_MEMBER_ENT				DC_TERRAIN_BASE_ID + 2
 #define DC_TERRAIN_MEMBER_OFFSET_BASE		DC_TERRAIN_BASE_ID + 3
 #define DC_TERRAIN_MEMBER_OFFSET_X			DC_TERRAIN_BASE_ID + 4
