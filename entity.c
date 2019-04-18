@@ -6,7 +6,7 @@ void dc_terrain_get_entity()
 	void result;
 
 	// Concatenate instance and key to create an id.
-	id = dc_terrain_get_instance() + DC_TERRAIN_VAR_KEY_ENT;
+	id = dc_terrain_get_instance() + DC_TERRAIN_MEMBER_ENT;
 
 	// Get value from local var.
 	result = getlocalvar(id);
@@ -25,7 +25,7 @@ void dc_terrain_set_entity(int value)
 	char id;
 
 	// Concatenate instance and key to create an id.
-	id = dc_terrain_get_instance() + DC_TERRAIN_VAR_KEY_ENT;
+	id = dc_terrain_get_instance() + DC_TERRAIN_MEMBER_ENT;
 
 	// If value is same as default, then make
 	// sure the local var is deleted. Otherwise

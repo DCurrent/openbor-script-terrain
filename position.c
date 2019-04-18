@@ -11,7 +11,7 @@ int dc_terrain_get_positioning_x()
 	int result;
 
 	// Concatenate instance and key to create an id.
-	id = dc_terrain_get_instance() + DC_TERRAIN_VAR_KEY_POSITION_STATE_X;
+	id = dc_terrain_get_instance() + DC_TERRAIN_MEMBER_POSITION_STATE_X;
 
 	// Get value from local var.
 	result = getlocalvar(id);
@@ -30,7 +30,7 @@ void dc_terrain_set_positioning_x(int value)
 	char id;
 
 	// Concatenate instance and key to create an id.
-	id = dc_terrain_get_instance() + DC_TERRAIN_VAR_KEY_POSITION_STATE_X;
+	id = dc_terrain_get_instance() + DC_TERRAIN_MEMBER_POSITION_STATE_X;
 
 	// If value is same as default, then make
 	// sure the local var is deleted. Otherwise
@@ -49,7 +49,7 @@ int dc_terrain_get_positioning_y()
 	int result;
 
 	// Concatenate instance and key to create an id.
-	id = dc_terrain_get_instance() + DC_TERRAIN_VAR_KEY_POSITION_STATE_Y;
+	id = dc_terrain_get_instance() + DC_TERRAIN_MEMBER_POSITION_STATE_Y;
 
 	// Get value from local var.
 	result = getlocalvar(id);
@@ -68,7 +68,7 @@ void dc_terrain_set_positioning_y(int value)
 	char id;
 
 	// Concatenate instance and key to create an id.
-	id = dc_terrain_get_instance() + DC_TERRAIN_VAR_KEY_POSITION_STATE_Y;
+	id = dc_terrain_get_instance() + DC_TERRAIN_MEMBER_POSITION_STATE_Y;
 
 	// If value is same as default, then make
 	// sure the local var is deleted. Otherwise
@@ -87,7 +87,7 @@ int dc_terrain_get_positioning_z()
 	int result;
 
 	// Concatenate instance and key to create an id.
-	id = dc_terrain_get_instance() + DC_TERRAIN_VAR_KEY_POSITION_STATE_Z;
+	id = dc_terrain_get_instance() + DC_TERRAIN_MEMBER_POSITION_STATE_Z;
 
 	// Get value from local var.
 	result = getlocalvar(id);
@@ -106,7 +106,7 @@ void dc_terrain_set_positioning_z(int value)
 	char id;
 
 	// Concatenate instance and key to create an id.
-	id = dc_terrain_get_instance() + DC_TERRAIN_VAR_KEY_POSITION_STATE_Z;
+	id = dc_terrain_get_instance() + DC_TERRAIN_MEMBER_POSITION_STATE_Z;
 
 	// If value is same as default, then make
 	// sure the local var is deleted. Otherwise

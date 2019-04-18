@@ -13,7 +13,7 @@ int dc_terrain_get_wall()
 	int result;
 
 	// Concatenate instance and key to create an id.
-	id = dc_terrain_get_instance() + DC_TERRAIN_VAR_KEY_WALL;
+	id = dc_terrain_get_instance() + DC_TERRAIN_MEMBER_WALL;
 
 	// Get value from local var.
 	result = getlocalvar(id);
@@ -32,7 +32,7 @@ void dc_terrain_set_wall(int value)
 	char id;
 
 	// Concatenate instance and key to create an id.
-	id = dc_terrain_get_instance() + DC_TERRAIN_VAR_KEY_WALL;
+	id = dc_terrain_get_instance() + DC_TERRAIN_MEMBER_WALL;
 
 	// If value is same as default, then make
 	// sure the local var is deleted. Otherwise
