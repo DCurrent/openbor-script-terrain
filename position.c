@@ -6,13 +6,13 @@
 
 // Access and mutators.
 
-int dc_terrain_get_positioning_x()
+int dc_terrain_get_anchor_x()
 {
 	char id;
 	int result;
 
 	// Concatenate instance and key to create an id.
-	id = dc_terrain_get_instance() + DC_TERRAIN_MEMBER_POSITION_STATE_X;
+	id = dc_terrain_get_instance() + DC_TERRAIN_MEMBER_ANCHOR_X;
 
 	// Get value from local var.
 	result = getlocalvar(id);
@@ -20,23 +20,23 @@ int dc_terrain_get_positioning_x()
 	// If result is empty or invalid, use default.
 	if (typeof(result) != openborconstant("VT_INTEGER"))
 	{
-		result = DC_TERRAIN_DEFAULT_POSITION_STATE_X;
+		result = DC_TERRAIN_DEFAULT_ANCHOR_X;
 	}
 
 	return result;
 }
 
-void dc_terrain_set_positioning_x(int value)
+void dc_terrain_set_anchor_x(int value)
 {
 	char id;
 
 	// Concatenate instance and key to create an id.
-	id = dc_terrain_get_instance() + DC_TERRAIN_MEMBER_POSITION_STATE_X;
+	id = dc_terrain_get_instance() + DC_TERRAIN_MEMBER_ANCHOR_X;
 
 	// If value is same as default, then make
 	// sure the local var is deleted. Otherwise
 	// store the value.
-	if (value == DC_TERRAIN_DEFAULT_POSITION_STATE_X)
+	if (value == DC_TERRAIN_DEFAULT_ANCHOR_X)
 	{
 		value = NULL();
 	}
@@ -44,13 +44,13 @@ void dc_terrain_set_positioning_x(int value)
 	setlocalvar(id, value);	
 }
 
-int dc_terrain_get_positioning_y()
+int dc_terrain_get_anchor_y()
 {
 	char id;
 	int result;
 
 	// Concatenate instance and key to create an id.
-	id = dc_terrain_get_instance() + DC_TERRAIN_MEMBER_POSITION_STATE_Y;
+	id = dc_terrain_get_instance() + DC_TERRAIN_MEMBER_ANCHOR_Y;
 
 	// Get value from local var.
 	result = getlocalvar(id);
@@ -58,23 +58,23 @@ int dc_terrain_get_positioning_y()
 	// If result is empty or invalid, use default.
 	if (typeof(result) != openborconstant("VT_INTEGER"))
 	{
-		result = DC_TERRAIN_DEFAULT_POSITION_STATE_Y;
+		result = DC_TERRAIN_DEFAULT_ANCHOR_Y;
 	}
 
 	return result;
 }
 
-void dc_terrain_set_positioning_y(int value)
+void dc_terrain_set_anchor_y(int value)
 {
 	char id;
 
 	// Concatenate instance and key to create an id.
-	id = dc_terrain_get_instance() + DC_TERRAIN_MEMBER_POSITION_STATE_Y;
+	id = dc_terrain_get_instance() + DC_TERRAIN_MEMBER_ANCHOR_Y;
 
 	// If value is same as default, then make
 	// sure the local var is deleted. Otherwise
 	// store the value.
-	if (value == DC_TERRAIN_DEFAULT_POSITION_STATE_Y)
+	if (value == DC_TERRAIN_DEFAULT_ANCHOR_Y)
 	{
 		value = NULL();
 	}
@@ -82,13 +82,13 @@ void dc_terrain_set_positioning_y(int value)
 	setlocalvar(id, value);
 }
 
-int dc_terrain_get_positioning_z()
+int dc_terrain_get_anchor_z()
 {
 	char id;
 	int result;
 
 	// Concatenate instance and key to create an id.
-	id = dc_terrain_get_instance() + DC_TERRAIN_MEMBER_POSITION_STATE_Z;
+	id = dc_terrain_get_instance() + DC_TERRAIN_MEMBER_ANCHOR_Z;
 
 	// Get value from local var.
 	result = getlocalvar(id);
@@ -96,23 +96,23 @@ int dc_terrain_get_positioning_z()
 	// If result is empty or invalid, use default.
 	if (typeof(result) != openborconstant("VT_INTEGER"))
 	{
-		result = DC_TERRAIN_DEFAULT_POSITION_STATE_Z;
+		result = DC_TERRAIN_DEFAULT_ANCHOR_Z;
 	}
 
 	return result;
 }
 
-void dc_terrain_set_positioning_z(int value)
+void dc_terrain_set_anchor_z(int value)
 {
 	char id;
 
 	// Concatenate instance and key to create an id.
-	id = dc_terrain_get_instance() + DC_TERRAIN_MEMBER_POSITION_STATE_Z;
+	id = dc_terrain_get_instance() + DC_TERRAIN_MEMBER_ANCHOR_Z;
 
 	// If value is same as default, then make
 	// sure the local var is deleted. Otherwise
 	// store the value.
-	if (value == DC_TERRAIN_DEFAULT_POSITION_STATE_Z)
+	if (value == DC_TERRAIN_DEFAULT_ANCHOR_Z)
 	{
 		value = NULL();
 	}
@@ -134,13 +134,13 @@ float dc_terrain_find_final_position_x()
 	int positioning;
 
 	// get positioning setting.
-	positioning = dc_terrain_get_positioning_x();
+	positioning = dc_terrain_get_anchor_x();
 
 	// Start with 0 value.
 	result = 0.0;
 
 	// Use entity position?
-	if (positioning & DC_TERRAIN_POSITION_STATE_ENTITY)
+	if (positioning & DC_TERRAIN_ANCHOR_ENTITY)
 	{
 		ent = dc_terrain_get_entity();
 
@@ -148,7 +148,7 @@ float dc_terrain_find_final_position_x()
 	}
 
 	// Use offset?
-	if (positioning & DC_TERRAIN_POSITION_STATE_OFFSET)
+	if (positioning & DC_TERRAIN_ANCHOR_OFFSET)
 	{
 		result += dc_terrain_get_offset_x();
 	}
@@ -169,13 +169,13 @@ float dc_terrain_find_final_position_y()
 	int positioning;
 
 	// get positioning setting.
-	positioning = dc_terrain_get_positioning_y();
+	positioning = dc_terrain_get_anchor_y();
 
 	// Start with 0 value.
 	result = 0.0;
 
 	// Use entity position?
-	if (positioning & DC_TERRAIN_POSITION_STATE_ENTITY)
+	if (positioning & DC_TERRAIN_ANCHOR_ENTITY)
 	{
 		ent = dc_terrain_get_entity();
 
@@ -183,7 +183,7 @@ float dc_terrain_find_final_position_y()
 	}
 
 	// Use offset?
-	if (positioning & DC_TERRAIN_POSITION_STATE_OFFSET)
+	if (positioning & DC_TERRAIN_ANCHOR_OFFSET)
 	{
 		result += dc_terrain_get_offset_y();
 	}
@@ -204,13 +204,13 @@ float dc_terrain_find_final_position_z()
 	int positioning;
 
 	// get positioning setting.
-	positioning = dc_terrain_get_positioning_z();
+	positioning = dc_terrain_get_anchor_z();
 
 	// Start with 0 value.
 	result = 0.0;
 
 	// Use entity position?
-	if (positioning & DC_TERRAIN_POSITION_STATE_ENTITY)
+	if (positioning & DC_TERRAIN_ANCHOR_ENTITY)
 	{
 		ent = dc_terrain_get_entity();
 
@@ -218,7 +218,7 @@ float dc_terrain_find_final_position_z()
 	}
 
 	// Use offset?
-	if (positioning & DC_TERRAIN_POSITION_STATE_OFFSET)
+	if (positioning & DC_TERRAIN_ANCHOR_OFFSET)
 	{
 		result += dc_terrain_get_offset_z();
 	}
